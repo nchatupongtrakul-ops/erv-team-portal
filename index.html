@@ -88,7 +88,7 @@
 
 <div class="frame-wrap">
   <iframe id="frame-design" class="active" src="https://nchatupongtrakul-ops.github.io/design-management-dashboard/" loading="eager"></iframe>
-  <iframe id="frame-construction" src="" data-src="https://bejewelled-faloodeh-07ad12.netlify.app/" loading="lazy"></iframe>
+  <iframe id="frame-construction" data-src="https://bejewelled-faloodeh-07ad12.netlify.app/" loading="lazy"></iframe>
 </div>
 
 <script>
@@ -102,7 +102,7 @@ function show(which) {
   document.querySelectorAll('iframe').forEach(f => f.classList.toggle('active', f.id === 'frame-' + which));
   // lazy-load construction frame on first open
   const f = document.getElementById('frame-' + which);
-  if (!f.src && f.dataset.src) f.src = f.dataset.src;
+  if (!f.getAttribute('src') && f.dataset.src) f.setAttribute('src', f.dataset.src);
   document.getElementById('openLink').href = URLS[which];
 }
 </script>
