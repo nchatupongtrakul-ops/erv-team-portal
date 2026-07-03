@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>ERV Team Dashboard — Coral Life</title>
+<style>
+  :root {
+    --navy: #2B3A67;
+    --lavender: #C4B5D4;
+    --bg: #F7F6F3;
+    --border: #E3E2DE;
+    --text: #37352F;
+    --muted: #787774;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .title { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .title span { color: var(--muted); font-weight: 500; font-size: 12px; margin-left: 8px; }
+  .tabs { display: flex; gap: 6px; margin-left: auto; }
+  .tab {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: all .15s;
+  }
+  .tab:hover { border-color: var(--navy); color: var(--navy); }
+  .tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .tab .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; }
+  .frame-wrap { flex: 1; position: relative; }
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+    display: none;
+  }
+  iframe.active { display: block; }
+  .open-link {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+  .open-link:hover { color: var(--navy); border-color: var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">ERV Team Dashboard <span>Coral Life — Engineering</span></div>
+  <div class="tabs">
+    <button class="tab active" id="tab-design" onclick="show('design')">
+      <span class="dot" style="background:#C4B5D4;"></span>Design Team
+    </button>
+    <button class="tab" id="tab-construction" onclick="show('construction')">
+      <span class="dot" style="background:#E2691F;"></span>Construction Team
+    </button>
+  </div>
+  <a class="open-link" id="openLink" href="https://nchatupongtrakul-ops.github.io/design-management-dashboard/" target="_blank">Open full page ↗</a>
+</header>
+
+<div class="frame-wrap">
+  <iframe id="frame-design" class="active" src="https://nchatupongtrakul-ops.github.io/design-management-dashboard/" loading="eager"></iframe>
+  <iframe id="frame-construction" src="" data-src="https://bejewelled-faloodeh-07ad12.netlify.app/" loading="lazy"></iframe>
+</div>
+
+<script>
+const URLS = {
+  design: 'https://nchatupongtrakul-ops.github.io/design-management-dashboard/',
+  construction: 'https://bejewelled-faloodeh-07ad12.netlify.app/'
+};
+
+function show(which) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + which));
+  document.querySelectorAll('iframe').forEach(f => f.classList.toggle('active', f.id === 'frame-' + which));
+  // lazy-load construction frame on first open
+  const f = document.getElementById('frame-' + which);
+  if (!f.src && f.dataset.src) f.src = f.dataset.src;
+  document.getElementById('openLink').href = URLS[which];
+}
+</script>
+
+</body>
+</html>
